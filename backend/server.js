@@ -22,15 +22,37 @@ app.use(morgan("dev"));
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Backend is running 🚀");
-});
+
 app.use("/api/cart", cartRoutes);
 
 const PORT = process.env.PORT || 5000;
 
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 app.use("/api/sneakers", sneakerRoutes);
 app.use("/api/orders", orderRoutes);
+
+// --------------------------
+// Deployment Logic
+// --------------------------
+if (process.env.NODE_ENV === "production") {
+  const frontendPath = path.join(__dirname, "../frontend/dist");
+  app.use(express.static(frontendPath));
+
+  // Serve index.html for any unknown routes (SPA)
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(frontendPath, "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("Backend is running (Dev Mode) 🚀");
+  });
+}
+// --------------------------
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

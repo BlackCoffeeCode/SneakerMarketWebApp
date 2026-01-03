@@ -1,0 +1,13 @@
+{
+  "name": "sneaker-app-root",
+  "version": "1.0.0",
+  "description": "Root script for MERN deployment",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "npm start --prefix backend",
+    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
