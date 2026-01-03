@@ -100,8 +100,8 @@ Sneaker-app/
 Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 🤝 Team
-Roshni Dodani - Full Stack Developer, UI/UX Designer | 
-Piyush Dhakad - Gen AI, Prompt Engineer, Ethical Hacker
+Piyush Dhakad - Ethical Hacker, Gen AI, Prompt Engineer | 
+Roshni Dodani - Full Stack Developer, UI/UX Designer
 
 ## 📄 License
 
