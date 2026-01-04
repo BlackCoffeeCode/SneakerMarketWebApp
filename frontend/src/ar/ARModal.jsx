@@ -111,26 +111,35 @@ const ARModal = ({ isOpen, onClose, product }) => {
                 </Canvas>
             </div>
 
-            {/* DOM Overlay Layer - Start Screen */}
-            <div className="absolute inset-0 z-10 pointer-events-none">
-                <div className="pointer-events-auto absolute inset-0 flex flex-col items-center justify-center bg-gray-900/90 text-white">
-                    <div className="text-center p-6 max-w-sm">
-                        <Smartphone size={48} className="mx-auto mb-4 text-primary-500" />
-                        <h2 className="text-2xl font-bold mb-2">Try On in AR</h2>
-                        <p className="text-gray-400 mb-8">
-                            See how these sneakers look on your feet. Requires an AR-capable Android device.
+            {/* DOM Overlay Layer - Controls */}
+            <div className="absolute inset-0 z-10 pointer-events-none flex flex-col justify-between p-6">
+
+                {/* Header / Close Button */}
+                <div className="flex justify-end pointer-events-auto">
+                    <button
+                        onClick={onClose}
+                        className="bg-white/10 backdrop-blur-md p-2 rounded-full text-white hover:bg-white/20 transition-colors"
+                    >
+                        <X size={24} />
+                    </button>
+                </div>
+
+                {/* Bottom Controls */}
+                <div className="pointer-events-auto flex flex-col items-center gap-4">
+                    <div className="bg-black/40 backdrop-blur-md px-6 py-4 rounded-2xl flex flex-col items-center text-center max-w-sm">
+                        <div className="flex items-center gap-2 text-white mb-2">
+                            <Smartphone size={20} className="text-primary-400" />
+                            <h3 className="font-bold text-lg">AR Viewer</h3>
+                        </div>
+                        <p className="text-gray-300 text-sm mb-4">
+                            Drag to rotate. On mobile, tap below to view in your room.
                         </p>
+
                         <button
                             onClick={handleStartAR}
-                            className="w-full bg-primary-600 text-white py-3 rounded-xl font-bold text-lg mb-4 hover:bg-primary-700 transition"
+                            className="w-full bg-primary-600 hover:bg-primary-700 text-white py-3 px-8 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg hover:scale-105"
                         >
-                            Start AR Session
-                        </button>
-                        <button
-                            onClick={onClose}
-                            className="text-gray-400 hover:text-white"
-                        >
-                            Cancel
+                            <span>Start AR Session</span>
                         </button>
                     </div>
                 </div>

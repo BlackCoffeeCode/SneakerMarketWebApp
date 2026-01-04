@@ -1,16 +1,18 @@
 import React, { useRef, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Environment } from '@react-three/drei';
+import { Environment, OrbitControls } from '@react-three/drei';
+import { useXR } from '@react-three/xr';
 import { Vector3 } from 'three';
 import SneakerModel from './components/SneakerModel';
 
 const ARScene = ({ isPlaced, scale, modelUrl }) => {
     const modelGroup = useRef();
     const { camera } = useThree();
+    const { isPresenting } = useXR();
 
-    // Float logic: If not placed, update position to be in front of camera
+    // Float logic: If not placed AND in AR mode, update position to be in front of camera
     useFrame(() => {
-        if (!isPlaced && modelGroup.current) {
+        if (isPresenting && !isPlaced && modelGroup.current) {
             // Get camera direction
             const direction = new Vector3();
             camera.getWorldDirection(direction);
@@ -18,13 +20,6 @@ const ARScene = ({ isPlaced, scale, modelUrl }) => {
             // Set position 1.5 meters in front of camera
             const position = new Vector3();
             position.copy(camera.position).add(direction.multiplyScalar(1.5));
-
-            // Keep y at ground level (roughly) relative to camera height? 
-            // Simplified: Just match camera height - 1.5m? 
-            // Or just place in front. 
-            // In AR, (0,0,0) is usually start position. 
-            // Better: 'Floating' ghost mode.
-            // We'll just smooth lerp to expected position
 
             // INCREASED RESPONSIVENESS for "Smooth" feel
             modelGroup.current.position.lerp(position, 0.8);
@@ -49,6 +44,9 @@ const ARScene = ({ isPlaced, scale, modelUrl }) => {
             <group ref={modelGroup}>
                 <SneakerModel modelUrl={modelUrl} scale={scale} />
             </group>
+
+            {/* Enable OrbitControls when NOT in AR mode (Desktop/Preview) */}
+            {!isPresenting && <OrbitControls autoRotate autoRotateSpeed={4} />}
         </>
     );
 };
