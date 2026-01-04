@@ -56,25 +56,23 @@ const Navbar = () => {
               </>
             ) : (
               <div className="flex items-center space-x-4">
-                {/* BECOME SELLER BUTTON (Desktop) */}
-                {user.role === "user" && (
-                  <button
-                    onClick={becomeAdmin}
-                    className="text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors"
-                  >
-                    Become a Seller
-                  </button>
-                )}
-
                 {/* 🔁 ROLE SWITCH DROPDOWN */}
                 <select
                   value={user.activeRole}
-                  onChange={(e) => switchRole(e.target.value)}
+                  onChange={(e) => {
+                    if (e.target.value === 'become_seller') {
+                      becomeAdmin();
+                    } else {
+                      switchRole(e.target.value);
+                    }
+                  }}
                   className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2"
                 >
                   <option value="user">User</option>
-                  {user.role === "admin" && (
+                  {user.role === "admin" ? (
                     <option value="admin">Seller</option>
+                  ) : (
+                    <option value="become_seller">Become a Seller</option>
                   )}
                 </select>
 
