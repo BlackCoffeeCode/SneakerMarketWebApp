@@ -56,6 +56,16 @@ const Navbar = () => {
               </>
             ) : (
               <div className="flex items-center space-x-4">
+                {/* BECOME SELLER BUTTON (Desktop) */}
+                {user.role === "user" && (
+                  <button
+                    onClick={becomeAdmin}
+                    className="text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors"
+                  >
+                    Become a Seller
+                  </button>
+                )}
+
                 {/* 🔁 ROLE SWITCH DROPDOWN */}
                 <select
                   value={user.activeRole}
